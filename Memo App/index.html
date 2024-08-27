@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Memo Sticker Application</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive; /* Retro-inspired font */
+            margin: 0;
+            padding: 0;
+            background: url('wallpaper.jpg') no-repeat center center fixed; /* Background image */
+            background-size: cover; /* Cover the whole viewport */
+            display: flex;
+            flex-direction: column; /* Align content vertically */
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+        }
+        #memoContainer {
+            width: 90vw; /* Responsive width */
+            max-width: 800px; /* Maximum width */
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            margin-top: 20px; /* Margin from top */
+        }
+        #memoInputContainer {
+            margin-bottom: 20px; /* Increased margin for better spacing */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap; /* Allow elements to wrap on smaller screens */
+        }
+        #memoInput {
+            flex: 1;
+            padding: 10px;
+            border-radius: 4px;
+            border: 2px solid #333; /* Retro border style */
+            background-color: #fff;
+        }
+        #colorPicker {
+            padding: 10px;
+            border-radius: 4px;
+            border: 2px solid #333; /* Retro border style */
+            background-color: #fff;
+        }
+        #addButton {
+            width: 40px; /* Fixed width */
+            height: 40px; /* Fixed height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #333; /* Retro border style */
+            border-radius: 4px;
+            background-color: #ffcc00; /* Retro yellow */
+            color: #333;
+            cursor: pointer;
+            font-size: 24px; /* Adjust size of icon */
+            line-height: 0; /* Remove extra space */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+        #addButton:hover {
+            background-color: #ffb700; /* Darker yellow on hover */
+        }
+        #memoList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+            gap: 10px;
+            position: relative;
+        }
+        .memo {
+            border-radius: 8px;
+            padding: 10px;
+            position: relative;
+            color: #333;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: #FFFFCC; /* Default color for memos */
+            border: 2px solid #333; /* Retro border style */
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2); /* Inner shadow */
+        }
+        .memo.expanded {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            width: calc(100% - 40px);
+            max-width: calc(100% - 40px);
+            min-height: 150px;
+            z-index: 10;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4); /* Floating shadow effect */
+            grid-column: span 2;
+        }
+        .memo p {
+            margin: 0;
+            word-wrap: break-word; /* Ensure long text wraps within the memo */
+        }
+        .memo p.editable {
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 5px;
+            background-color: #fff;
+            min-height: 50px;
+            white-space: pre-wrap; /* Preserve line breaks */
+            outline: none;
+        }
+        .memoActions {
+            display: flex;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            padding: 5px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Subtle shadow for better visibility */
+        }
+        .memoActions button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .deleteButton {
+            color: red;
+        }
+        .editButton {
+            color: blue;
+        }
+        .closeButton {
+            color: gray;
+        }
+        .hidden {
+            display: none;
+        }
+        .memoCheckbox {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+            display: none; /* Initially hidden */
+        }
+        .memo.selected .memoCheckbox {
+            display: block; /* Show when memo is selected */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="memoContainer">
+        <div id="memoInputContainer">
+            <input type="text" id="memoInput" placeholder="Enter your memo here...">
+            <select id="colorPicker">
+                <option value="#FFFFCC">Yellow</option> <!-- Updated Yellow color -->
+                <option value="#CCFFCC">Green</option>
+                <option value="#CCFFFF">Blue</option> <!-- Updated Blue color -->
+                <option value="#FFCCCC">Pink</option> <!-- Updated Pink color -->
+                <option value="#FFDAB9">Peach</option> <!-- New Peach color -->
+            </select>
+            <button id="addButton">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
+        <div id="memoList"></div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
